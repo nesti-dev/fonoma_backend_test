@@ -3,7 +3,7 @@ import redis as r
 from fastapi import FastAPI
 
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Dict
 
 
 app = FastAPI()
@@ -30,7 +30,7 @@ class Orders(BaseModel):
 
 
 @app.post("/solution")
-async def process_orders(orders: Orders):
+async def process_orders(orders: Orders) -> Dict[str, float]:
     orders_json = orders.model_dump_json()
 
     if (result := redis.get(orders_json)) is not None:
