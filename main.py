@@ -1,3 +1,5 @@
+import os
+
 import redis as r
 
 from fastapi import FastAPI
@@ -8,7 +10,9 @@ from typing import List, Dict
 
 app = FastAPI()
 
-redis = r.Redis(host='localhost', port=6379, db=0)
+REDIS = os.environ.get('REDIS', 'redis://localhost:6379')
+
+redis = r.Redis.from_url(REDIS)
 
 
 @app.get("/")
