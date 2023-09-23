@@ -15,7 +15,7 @@ class Order(BaseModel):
     id: int
     item: str
     quantity: int
-    price: float
+    price: float = Field(..., ge=0)
     status: str
 
 
